@@ -1,39 +1,49 @@
-import { useEffect, useState } from "react";
-import ContentContainer from "./ContentContainer";
-import { getTrending } from "./api";
+import { useEffect, useState } from 'react';
+import ContentContainer from './Containers/ContentContainer';
+import TrendingSingle from './Components/TrendingSingle';
+import TrendingList from './Components/TrendingList';
+import { getTrending, Trending } from './api';
 
-export type Name = {first: string, last: string}
+export type Name = { first: string; last: string };
 
 function App() {
-  const [name, setName] = useState({
-    first: "",
-    last: "",
+  const [name, setName] = useState<Name>({
+    first: '',
+    last: '',
   });
-  const [trendingRecipes, setTrendingRecipes] = useState()
 
-  const handleNameUpdate=(field: keyof typeof name, newName: string) => {
-    setName((prevState) => {
-      prevState[field] = newName
-      return prevState
-    })
-  }
+  const [trendingRecipes, setTrendingRecipes] = useState<Trending[]>();
+
+  const handleNameUpdate = (field: string, newName: string) => {
+    setName({
+      ...name,
+      [field]: newName,
+    });
+  };
 
   useEffect(() => {
     const fetchTrending = async () => {
-      const trending = await getTrending()
-      setTrendingRecipes(trending)
-    } 
-    fetchTrending()
-   }, [])
+      const trending = await getTrending();
+      if (!!trending && trending.length) {
+        setTrendingRecipes(trending);
+      }
+    };
+    fetchTrending();
+  }, []);
 
   return (
-      <div className="container">
-        <h5>App</h5>
-        <ContentContainer handleNameUpdate={handleNameUpdate} name={name} />
-        {/* Render a component here that displays the title and userRatingsCount (IF there is an associated rating object on the returned data) of the
-        first item coming back from the fetchTrending function in the useEffect */}
-      </div>
- 
+    <div className='container'>
+      <h5>App</h5>
+      <ContentContainer handleNameUpdate={handleNameUpdate} name={name} />
+      {trendingRecipes ? (
+        // Uncomment the component below to view a list of trening recipes
+        // <TrendingSingle trendingRecipes={trendingRecipes} />
+        <TrendingList trendingRecipes={trendingRecipes} />
+      ) : (
+        // Loading state component would go here (ie. loading spinner)
+        <>Loading...</>
+      )}
+    </div>
   );
 }
 

@@ -12,3 +12,14 @@ body {
 .field, .value {
   padding: 0.5rem;
 }
+
+.listItem {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  list-style: none;
+  border: 1px solid #ccc;
+}
+
+.trendingTitle {
+  text-align: center;
+}
