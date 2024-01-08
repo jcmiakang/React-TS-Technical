@@ -1,25 +1,12 @@
 import { useEffect, useState } from 'react';
 import ContentContainer from './Containers/ContentContainer';
-import TrendingSingle from './Components/TrendingSingle';
-import TrendingList from './Components/TrendingList';
+import TrendingContainer from './Containers/TrendingContainer';
 import { getTrending, Trending } from './api';
 
 export type Name = { first: string; last: string };
 
 function App() {
-  const [name, setName] = useState<Name>({
-    first: '',
-    last: '',
-  });
-
   const [trendingRecipes, setTrendingRecipes] = useState<Trending[]>();
-
-  const handleNameUpdate = (field: string, newName: string) => {
-    setName({
-      ...name,
-      [field]: newName,
-    });
-  };
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -34,14 +21,11 @@ function App() {
   return (
     <div className='container'>
       <h5>App</h5>
-      <ContentContainer handleNameUpdate={handleNameUpdate} name={name} />
+      <ContentContainer />
       {trendingRecipes ? (
-        // Uncomment the component below to view a list of trening recipes
-        // <TrendingSingle trendingRecipes={trendingRecipes} />
-        <TrendingList trendingRecipes={trendingRecipes} />
+        <TrendingContainer trendingRecipes={trendingRecipes} />
       ) : (
-        // Loading state component would go here (ie. loading spinner)
-        <>Loading...</>
+        <h4 className='title'>Loading...</h4>
       )}
     </div>
   );

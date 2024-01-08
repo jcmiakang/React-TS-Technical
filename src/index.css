@@ -20,6 +20,11 @@ body {
   border: 1px solid #ccc;
 }
 
-.trendingTitle {
+.title {
+  text-align: center;
+}
+
+.checkLabel {
+  display: block;
   text-align: center;
 }

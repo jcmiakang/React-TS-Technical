@@ -1,13 +1,12 @@
 import TextInput from '../Components/TextInput';
 import { Name } from '../App';
 
-const FormContainer = ({
-  handleNameUpdate,
-  name,
-}: {
+interface FormContainerProps {
   handleNameUpdate: (field: string, newName: string) => void;
   name: Name;
-}) => {
+}
+
+const FormContainer = ({ handleNameUpdate, name }: FormContainerProps) => {
   return (
     <div className='container'>
       <h5>FormContainer</h5>

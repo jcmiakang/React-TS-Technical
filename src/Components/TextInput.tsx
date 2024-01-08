@@ -1,12 +1,10 @@
-const TextInput = ({
-  value,
-  handleNameUpdate,
-  name,
-}: {
-  name: string;
+interface TextInputProps {
   value: string;
+  name: string;
   handleNameUpdate: (field: string, newName: string) => void;
-}) => {
+}
+
+const TextInput = ({ value, name, handleNameUpdate }: TextInputProps) => {
   return (
     <div className='field'>
       {`${value}: `}

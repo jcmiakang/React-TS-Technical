@@ -1,7 +1,11 @@
 import Display from '../Components/Display';
 import { Name } from '../App';
 
-const DisplayContainer = ({ name }: { name: Name }) => {
+interface DisplayContainerProps {
+  name: Name;
+}
+
+const DisplayContainer = ({ name }: DisplayContainerProps) => {
   return (
     <div className='container'>
       <h5>DisplayContainer</h5>

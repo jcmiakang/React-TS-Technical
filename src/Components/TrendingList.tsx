@@ -1,14 +1,23 @@
 import { Trending } from '../api';
 
-const TrendingList = ({ trendingRecipes }: { trendingRecipes: Trending[] }) => {
-  const recipeList = trendingRecipes.map((recipe) => {
+interface TrendingListProps {
+  trendingRecipes: Trending[];
+  isList: boolean;
+}
+
+const TrendingList = ({ trendingRecipes, isList }: TrendingListProps) => {
+  const recipesArray: Trending[] = isList
+    ? trendingRecipes
+    : [trendingRecipes[0]];
+
+  const recipeList = recipesArray.map((recipe) => {
+    const recipeKey = `trending-recipe-${recipe.document_id}`;
     const title: string = recipe.title;
     const userRatingsCount: number | undefined =
       recipe.rating.attributes.userRatingsCount;
-    const key = `trending-recipe-${recipe.document_id}`;
 
     return (
-      <li className='listItem' key={key}>
+      <li className='listItem' key={recipeKey}>
         <h4>{title}</h4>
         <div className='value'>
           User Ratings:{' '}
@@ -20,12 +29,7 @@ const TrendingList = ({ trendingRecipes }: { trendingRecipes: Trending[] }) => {
     );
   });
 
-  return (
-    <section className='container'>
-      <h4 className='trendingTitle'>See What's Trending</h4>
-      {recipeList}
-    </section>
-  );
+  return <>{recipeList}</>;
 };
 
 export default TrendingList;
