@@ -6,6 +6,9 @@ interface TrendingContainerProps {
   trendingRecipes: Trending[];
 }
 
+// Depending if the checkbox is checked, this component will render either 1 recipe or all recipes returned from the API.
+// Pagination would be helpful if we were getting more data back then just a few objects.
+
 const TrendingContainer = ({ trendingRecipes }: TrendingContainerProps) => {
   const [isList, setIsList] = useState<boolean>(true);
 

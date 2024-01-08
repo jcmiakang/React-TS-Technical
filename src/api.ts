@@ -15,6 +15,7 @@ type Rating = {
   }
 }
 
+// Implemented error handing for various errors as well as type coersion on successful response.
 export const getTrending = async (): Promise<Trending[]> => {
   try {
     const response = await fetch('https://speak-easy-staging.herokuapp.com/api/analytics/trending/atk')
